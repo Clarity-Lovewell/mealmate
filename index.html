@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MealMate 🍽️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --cream2: #F5ECD9;
+    --brown: #2C1810;
+    --brown-mid: #6B3D2E;
+    --terra: #C4622D;
+    --terra-light: #E8895A;
+    --terra-pale: #FCEEE6;
+    --sage: #5C7A4E;
+    --sage-light: #8AAD7B;
+    --sage-pale: #EDF4E9;
+    --muted: #9B7E6A;
+    --card: #FFFFFF;
+    --border: #E8D9C8;
+    --shadow: 0 2px 12px rgba(44,24,16,0.08);
+    --shadow-lg: 0 8px 32px rgba(44,24,16,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--brown);
+    min-height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; flex-direction: column; min-height: 100dvh; padding-bottom: 80px; }
+  .screen.active { display: flex; }
+
+  .screen-header {
+    padding: 52px 24px 20px;
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .screen-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.2;
+  }
+  .screen-header p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgba(253,246,236,0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+    padding: 8px 0 env(safe-area-inset-bottom, 8px);
+  }
+  .nav-btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 4px; border: none; background: none; cursor: pointer;
+    color: var(--muted); transition: color 0.2s;
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+  }
+  .nav-btn.active { color: var(--terra); }
+  .nav-btn svg { width: 24px; height: 24px; }
+  .nav-btn.center-btn {
+    position: relative;
+  }
+  .nav-btn.center-btn .center-icon {
+    width: 52px; height: 52px;
+    background: var(--terra);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: -24px;
+    box-shadow: 0 4px 16px rgba(196,98,45,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-btn.center-btn.active .center-icon,
+  .nav-btn.center-btn:active .center-icon {
+    transform: scale(0.94);
+    box-shadow: 0 2px 8px rgba(196,98,45,0.3);
+  }
+  .nav-btn.center-btn svg { color: white; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .card-pad { padding: 20px; }
+
+  /* ── SCROLL AREA ── */
+  .scroll-area { flex: 1; overflow-y: auto; padding: 0 16px 16px; }
+
+  /* ── TONIGHT SCREEN ── */
+  #screen-tonight .scroll-area { padding-top: 8px; }
+
+  .suggest-hero {
+    background: linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    color: white;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .suggest-hero::before {
+    content: '🍽️';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 64px;
+    opacity: 0.15;
+  }
+  .suggest-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .suggest-hero p { font-size: 14px; opacity: 0.75; margin-bottom: 20px; }
+  .btn-suggest {
+    background: var(--terra);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .btn-suggest:active { transform: scale(0.97); background: var(--terra-light); }
+
+  /* Mood picker */
+  .mood-section { margin-bottom: 16px; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--brown);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chip:active, .chip.selected {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: white;
+  }
+
+  /* AI result */
+  #suggestion-result {
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .suggestion-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1.5px solid var(--terra-light);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .suggestion-card-header {
+    background: var(--terra-pale);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .suggestion-number {
+    width: 28px; height: 28px;
+    background: var(--terra);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .suggestion-card-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brown);
+  }
+  .suggestion-card-body { padding: 14px 18px; }
+  .suggestion-card-body p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .btn-log-this {
+    margin-top: 12px;
+    background: var(--sage);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 9px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-log-this:active { opacity: 0.8; }
+
+  .ai-thinking {
+    display: none;
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+  }
+  .ai-thinking .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--terra);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── LOG SCREEN ── */
+  #screen-log .scroll-area { padding-top: 8px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--brown);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--terra); }
+  textarea.form-input { resize: none; min-height: 90px; line-height: 1.5; }
+
+  /* Photo area */
+  .photo-area {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: var(--cream);
+  }
+  .photo-area:active, .photo-area.has-photo { border-color: var(--terra); background: var(--terra-pale); }
+  .photo-area p { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .photo-preview {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+  #photo-input { display: none; }
+
+  /* Voice btn */
+  .voice-btn {
+    width: 100%;
+    padding: 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--brown);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .voice-btn.recording {
+    background: #FEE2E2;
+    border-color: #EF4444;
+    color: #EF4444;
+    animation: pulse 1.2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* Rating stars */
+  .star-row { display: flex; gap: 8px; }
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    padding: 4px;
+    opacity: 0.3;
+    filter: grayscale(1);
+  }
+  .star-btn.active { opacity: 1; filter: none; transform: scale(1.1); }
+
+  /* Save btn */
+  .btn-save {
+    width: 100%;
+    padding: 16px;
+    background: var(--terra);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+    margin-top: 8px;
+  }
+  .btn-save:active { opacity: 0.85; transform: scale(0.99); }
+
+  /* ── HISTORY SCREEN ── */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 16px 12px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-chip {
+    padding: 7px 16px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .filter-chip.active {
+    background: var(--brown);
+    border-color: var(--brown);
+    color: white;
+  }
+
+  /* Meal cards in history */
+  .meal-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: transform 0.15s;
+  }
+  .meal-card:active { transform: scale(0.99); }
+  .meal-card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+  .meal-card-body { padding: 14px 16px; }
+  .meal-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .meal-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .meal-card-rating { font-size: 14px; flex-shrink: 0; }
+  .meal-card-notes {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .meal-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .meal-date { font-size: 12px; color: var(--muted); }
+  .meal-category-badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 50px;
+    background: var(--sage-pale);
+    color: var(--sage);
+  }
+  .meal-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+  }
+  .btn-icon {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .btn-icon:active { background: var(--cream2); }
+  .btn-icon.danger:active { background: #FEE2E2; color: #EF4444; border-color: #EF4444; }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--muted);
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 16px; }
+  .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--brown); margin-bottom: 8px; }
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+
+  /* ── SETTINGS MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(44,24,16,0.5);
+    z-index: 200;
+    align-items: flex-end;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-sheet {
+    background: var(--cream);
+    border-radius: 24px 24px 0 0;
+    padding: 24px 24px 40px;
+    width: 100%;
+    max-height: 85dvh;
+    overflow-y: auto;
+    animation: sheetUp 0.3s ease;
+  }
+  @keyframes sheetUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .settings-row {
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .settings-label { font-size: 13px; font-weight: 600; color: var(--brown); }
+  .settings-hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .api-key-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--brown);
+    background: var(--card);
+    outline: none;
+    font-family: monospace;
+  }
+  .api-key-input:focus { border-color: var(--terra); }
+  .btn-save-settings {
+    width: 100%;
+    padding: 14px;
+    background: var(--terra);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .btn-close-modal {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--cream2);
+    border: none;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+  }
+  .danger-zone {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .btn-danger {
+    width: 100%;
+    padding: 12px;
+    background: none;
+    color: #EF4444;
+    border: 1.5px solid #FCA5A5;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    top: 20px; left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: var(--brown);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 300;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+    max-width: calc(100vw - 48px);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--sage); }
+  .toast.error { background: #EF4444; }
+
+  /* ── DETAIL MODAL ── */
+  .detail-modal .modal-sheet { padding-bottom: env(safe-area-inset-bottom, 40px); }
+  .detail-img {
+    width: calc(100% + 48px);
+    margin: -24px -24px 20px;
+    max-height: 250px;
+    object-fit: cover;
+    display: none;
+  }
+  .detail-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .detail-meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .detail-notes {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--brown);
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  /* ── UTILS ── */
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+
+  /* Divider date header */
+  .date-divider {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 0 6px;
+  }
+
+  /* Stats bar */
+  .stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .stat-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--terra);
+  }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+
+  /* Swipe hint */
+  .voice-transcript {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    min-height: 20px;
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  /* Category color map */
+  .cat-asian { background: #FEF3C7; color: #92400E; }
+  .cat-italian { background: #FDE8E8; color: #9B1C1C; }
+  .cat-healthy { background: var(--sage-pale); color: var(--sage); }
+  .cat-comfort { background: #EDE9FE; color: #5B21B6; }
+  .cat-quick { background: #DBEAFE; color: #1E40AF; }
+  .cat-takeaway { background: #FEF3C7; color: #92400E; }
+  .cat-homestyle { background: #FCE7F3; color: #9D174D; }
+  .cat-mexican { background: #FEF3C7; color: #92400E; }
+  .cat-seafood { background: #CFFAFE; color: #155E75; }
+  .cat-middle-eastern { background: #FEF3C7; color: #92400E; }
+  .cat-other { background: var(--cream2); color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SCREEN: TONIGHT (AI Suggestions)
+═══════════════════════════════════ -->
+<div id="screen-tonight" class="screen active">
+  <div class="screen-header">
+    <div class="header-row">
+      <div>
+        <h1>Tonight's Dinner</h1>
+        <p id="tonight-date">Monday evening</p>
+      </div>
+      <button onclick="openSettings()" style="background:none;border:none;cursor:pointer;padding:4px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="scroll-area">
+
+    <div class="suggest-hero">
+      <h2>What are we having?</h2>
+      <p>Let me suggest something based on what you've been eating — and how you're feeling tonight.</p>
+      <button class="btn-suggest" onclick="startSuggest()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Suggest dinner
+      </button>
+    </div>
+
+    <!-- Mood pickers (shown during suggest flow) -->
+    <div id="mood-picker" style="display:none;">
+      <div class="card card-pad" style="margin-bottom:16px;">
+        <p style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;margin-bottom:16px;">How are you feeling tonight?</p>
+
+        <div class="mood-section">
+          <p class="section-label">Energy level</p>
+          <div class="chip-row" id="chips-energy">
+            <div class="chip" data-group="energy" onclick="selectChip(this)">😴 Tired</div>
+            <div class="chip" data-group="energy" onclick="selectChip(this)">😊 Normal</div>
+            <div class="chip" data-group="energy" onclick="selectChip(this)">⚡ Energetic</div>
+          </div>
+        </div>
+
+        <div class="mood-section" style="margin-top:14px;">
+          <p class="section-label">Craving</p>
+          <div class="chip-row" id="chips-craving">
+            <div class="chip" data-group="craving" onclick="selectChip(this)">🫂 Comfort</div>
+            <div class="chip" data-group="craving" onclick="selectChip(this)">🥗 Light</div>
+            <div class="chip" data-group="craving" onclick="selectChip(this)">🌶️ Bold</div>
+            <div class="chip" data-group="craving" onclick="selectChip(this)">🍜 Noodles</div>
+            <div class="chip" data-group="craving" onclick="selectChip(this)">🥩 Hearty</div>
+          </div>
+        </div>
+
+        <div class="mood-section" style="margin-top:14px;">
+          <p class="section-label">Effort</p>
+          <div class="chip-row" id="chips-effort">
+            <div class="chip" data-group="effort" onclick="selectChip(this)">📦 Order in</div>
+            <div class="chip" data-group="effort" onclick="selectChip(this)">⚡ Quick cook</div>
+            <div class="chip" data-group="effort" onclick="selectChip(this)">👩‍🍳 Proper cook</div>
+          </div>
+        </div>
+
+        <button class="btn-save mt-16" onclick="getSuggestions()" id="btn-get-suggestions">
+          ✨ Get suggestions
+        </button>
+      </div>
+    </div>
+
+    <!-- AI thinking -->
+    <div class="ai-thinking" id="ai-thinking">
+      <div class="spinner"></div>
+      <p style="font-size:14px;">Thinking about what you'd enjoy...</p>
+    </div>
+
+    <!-- Results -->
+    <div id="suggestion-result"></div>
+
+    <!-- Recent meals quick view -->
+    <div id="recent-tonight">
+      <p class="section-label" style="margin-bottom:10px;">Recently eaten</p>
+      <div id="recent-list-tonight"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN: LOG A MEAL
+═══════════════════════════════════ -->
+<div id="screen-log" class="screen">
+  <div class="screen-header">
+    <h1>Log a Meal</h1>
+    <p>What did you eat?</p>
+  </div>
+  <div class="scroll-area">
+
+    <div class="card card-pad">
+
+      <!-- Meal name -->
+      <div class="form-group">
+        <label class="form-label">Meal name *</label>
+        <input type="text" id="log-name" class="form-input" placeholder="e.g. Pasta carbonara" autocomplete="off">
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <div class="chip-row" style="flex-wrap:wrap;" id="cat-chips">
+          <div class="chip" data-cat="Asian" onclick="selectCat(this)">🍜 Asian</div>
+          <div class="chip" data-cat="Italian" onclick="selectCat(this)">🍝 Italian</div>
+          <div class="chip" data-cat="Healthy" onclick="selectCat(this)">🥗 Healthy</div>
+          <div class="chip" data-cat="Comfort" onclick="selectCat(this)">🫂 Comfort</div>
+          <div class="chip" data-cat="Quick" onclick="selectCat(this)">⚡ Quick</div>
+          <div class="chip" data-cat="Takeaway" onclick="selectCat(this)">🥡 Takeaway</div>
+          <div class="chip" data-cat="Homestyle" onclick="selectCat(this)">🥘 Homestyle</div>
+          <div class="chip" data-cat="Mexican" onclick="selectCat(this)">🌮 Mexican</div>
+          <div class="chip" data-cat="Seafood" onclick="selectCat(this)">🐟 Seafood</div>
+          <div class="chip" data-cat="Other" onclick="selectCat(this)">✨ Other</div>
+        </div>
+      </div>
+
+      <!-- Notes / voice -->
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="log-notes" class="form-input" placeholder="How was it? Any tweaks next time?"></textarea>
+        <button class="voice-btn mt-8" id="voice-btn" onclick="toggleVoice()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          <span id="voice-btn-text">Dictate notes</span>
+        </button>
+        <p class="voice-transcript" id="voice-transcript"></p>
+      </div>
+
+      <!-- Photo -->
+      <div class="form-group">
+        <label class="form-label">Photo</label>
+        <div class="photo-area" id="photo-area" onclick="document.getElementById('photo-input').click()">
+          <img id="photo-preview" class="photo-preview" alt="Meal photo">
+          <div id="photo-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" style="margin:0 auto;display:block;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p>Tap to add photo</p>
+          </div>
+        </div>
+        <input type="file" id="photo-input" accept="image/*" capture="environment" onchange="handlePhoto(this)">
+      </div>
+
+      <!-- Rating -->
+      <div class="form-group">
+        <label class="form-label">Rating</label>
+        <div class="star-row" id="star-row">
+          <button class="star-btn" data-val="1" onclick="setRating(1)">⭐</button>
+          <button class="star-btn" data-val="2" onclick="setRating(2)">⭐</button>
+          <button class="star-btn" data-val="3" onclick="setRating(3)">⭐</button>
+          <button class="star-btn" data-val="4" onclick="setRating(4)">⭐</button>
+          <button class="star-btn" data-val="5" onclick="setRating(5)">⭐</button>
+        </div>
+      </div>
+
+      <!-- When -->
+      <div class="form-group">
+        <label class="form-label">When</label>
+        <input type="datetime-local" id="log-date" class="form-input">
+      </div>
+
+      <button class="btn-save" onclick="saveMeal()">Save meal 🍽️</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SCREEN: HISTORY
+═══════════════════════════════════ -->
+<div id="screen-history" class="screen">
+  <div class="screen-header">
+    <h1>Meal History</h1>
+    <p id="history-count">Loading...</p>
+  </div>
+
+  <div class="filter-row" id="filter-row">
+    <div class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">All</div>
+    <div class="filter-chip" data-filter="Asian" onclick="setFilter(this,'Asian')">🍜 Asian</div>
+    <div class="filter-chip" data-filter="Italian" onclick="setFilter(this,'Italian')">🍝 Italian</div>
+    <div class="filter-chip" data-filter="Healthy" onclick="setFilter(this,'Healthy')">🥗 Healthy</div>
+    <div class="filter-chip" data-filter="Comfort" onclick="setFilter(this,'Comfort')">🫂 Comfort</div>
+    <div class="filter-chip" data-filter="Quick" onclick="setFilter(this,'Quick')">⚡ Quick</div>
+    <div class="filter-chip" data-filter="Takeaway" onclick="setFilter(this,'Takeaway')">🥡 Takeaway</div>
+    <div class="filter-chip" data-filter="Homestyle" onclick="setFilter(this,'Homestyle')">🥘 Homestyle</div>
+    <div class="filter-chip" data-filter="Mexican" onclick="setFilter(this,'Mexican')">🌮 Mexican</div>
+    <div class="filter-chip" data-filter="Seafood" onclick="setFilter(this,'Seafood')">🐟 Seafood</div>
+    <div class="filter-chip" data-filter="Other" onclick="setFilter(this,'Other')">✨ Other</div>
+  </div>
+
+  <div class="scroll-area" id="history-list" style="padding-top:0;"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     BOTTOM NAV
+═══════════════════════════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-tonight" onclick="navigate('tonight')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+    Tonight
+  </button>
+  <button class="nav-btn center-btn" id="nav-log" onclick="navigate('log')">
+    <div class="center-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    Log
+  </button>
+  <button class="nav-btn" id="nav-history" onclick="navigate('history')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    History
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════
+     SETTINGS MODAL
+═══════════════════════════════════ -->
+<div class="modal-overlay" id="settings-modal" onclick="closeSettings(event)">
+  <div class="modal-sheet" style="position:relative;">
+    <div class="modal-handle"></div>
+    <button class="btn-close-modal" onclick="closeSettings()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 class="modal-title">Settings</h2>
+
+    <div class="settings-row">
+      <span class="settings-label">Anthropic API Key</span>
+      <span class="settings-hint">Needed for AI suggestions. Get yours at <strong>console.anthropic.com</strong>. Your key is stored only on this device.</span>
+      <input type="password" id="api-key-input" class="api-key-input" placeholder="sk-ant-...">
+    </div>
+
+    <button class="btn-save-settings" onclick="saveSettings()">Save settings</button>
+
+    <div class="danger-zone">
+      <p style="font-size:13px;font-weight:600;color:var(--brown);margin-bottom:6px;">Danger Zone</p>
+      <button class="btn-danger" onclick="clearAllData()">🗑️ Clear all meal data</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     DETAIL MODAL
+═══════════════════════════════════ -->
+<div class="modal-overlay detail-modal" id="detail-modal" onclick="closeDetail(event)">
+  <div class="modal-sheet" style="position:relative;">
+    <img id="detail-img" class="detail-img" alt="Meal photo">
+    <div class="modal-handle"></div>
+    <button class="btn-close-modal" onclick="closeDetail()" style="top:16px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 class="detail-name" id="detail-name"></h2>
+    <p class="detail-meta" id="detail-meta"></p>
+    <div class="detail-notes" id="detail-notes" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// DATA LAYER
+// ══════════════════════════════════════
+const DB = {
+  load() {
+    try { return JSON.parse(localStorage.getItem('mealmate_v1') || '[]'); }
+    catch { return []; }
+  },
+  save(meals) {
+    localStorage.setItem('mealmate_v1', JSON.stringify(meals));
+  },
+  add(meal) {
+    const meals = this.load();
+    meal.id = Date.now().toString();
+    meal.createdAt = new Date().toISOString();
+    meals.unshift(meal);
+    this.save(meals);
+    return meal;
+  },
+  delete(id) {
+    const meals = this.load().filter(m => m.id !== id);
+    this.save(meals);
+  },
+  getApiKey() { return localStorage.getItem('mealmate_apikey') || ''; },
+  setApiKey(k) { localStorage.setItem('mealmate_apikey', k); }
+};
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let currentRating = 0;
+let currentPhotoB64 = null;
+let currentFilter = 'all';
+let currentMoods = {};
+let recognition = null;
+let isRecording = false;
+let prefillName = '';
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function navigate(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  document.getElementById('nav-' + screen).classList.add('active');
+
+  if (screen === 'tonight') renderTonightRecent();
+  if (screen === 'history') renderHistory();
+  if (screen === 'log') {
+    resetLogForm();
+    if (prefillName) {
+      document.getElementById('log-name').value = prefillName;
+      prefillName = '';
+    }
+  }
+}
+
+// ══════════════════════════════════════
+// TONIGHT / SUGGESTIONS
+// ══════════════════════════════════════
+function startSuggest() {
+  document.getElementById('mood-picker').style.display = 'block';
+  document.getElementById('mood-picker').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function selectChip(el) {
+  const group = el.dataset.group;
+  document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  currentMoods[group] = el.textContent.trim();
+}
+
+async function getSuggestions() {
+  const apiKey = DB.getApiKey();
+  if (!apiKey) {
+    showToast('Add your API key in Settings first', 'error');
+    openSettings();
+    return;
+  }
+
+  document.getElementById('mood-picker').style.display = 'none';
+  document.getElementById('ai-thinking').style.display = 'block';
+  document.getElementById('suggestion-result').style.display = 'none';
+  document.getElementById('recent-tonight').style.display = 'none';
+
+  const meals = DB.load();
+  const mealHistory = meals.slice(0, 30).map(m =>
+    `${m.name} (${m.category || 'uncategorised'}) – rated ${m.rating || '?'}/5, eaten ${timeAgo(m.createdAt)}`
+  ).join('\n');
+
+  const moodStr = Object.entries(currentMoods).map(([k,v]) => `${k}: ${v}`).join(', ');
+
+  const prompt = `You are a helpful meal suggestion assistant for a couple. Here is their recent meal history:
+
+${mealHistory || 'No meals logged yet.'}
+
+Tonight's mood/preferences: ${moodStr || 'no specific preferences given'}
+
+Based on this history, suggest exactly 3 dinner options. Consider:
+- Variety (don't repeat what they've had very recently)
+- Their mood and energy tonight
+- Mix comfort with novelty
+- Be specific with dish names, not just cuisine types
+
+Respond in this exact JSON format (no markdown, just raw JSON):
+{
+  "suggestions": [
+    {"name": "Dish name", "reason": "Why this makes sense tonight, 1-2 sentences."},
+    {"name": "Dish name", "reason": "Why this makes sense tonight, 1-2 sentences."},
+    {"name": "Dish name", "reason": "Why this makes sense tonight, 1-2 sentences."}
+  ]
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 600,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'API error');
+    }
+
+    const data = await res.json();
+    const text = data.content.map(c => c.text || '').join('');
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+
+    document.getElementById('ai-thinking').style.display = 'none';
+
+    const resultEl = document.getElementById('suggestion-result');
+    resultEl.innerHTML = `
+      <p class="section-label" style="margin-bottom:10px;">Tonight's suggestions</p>
+      ${parsed.suggestions.map((s, i) => `
+        <div class="suggestion-card">
+          <div class="suggestion-card-header">
+            <div class="suggestion-number">${i + 1}</div>
+            <h3>${s.name}</h3>
+          </div>
+          <div class="suggestion-card-body">
+            <p>${s.reason}</p>
+            <button class="btn-log-this" onclick="logThis('${s.name.replace(/'/g, "\\'")}')">✓ We're having this</button>
+          </div>
+        </div>
+      `).join('')}
+      <button onclick="resetSuggest()" style="width:100%;padding:12px;background:none;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;margin-top:4px;">
+        Try different suggestions
+      </button>
+    `;
+    resultEl.style.display = 'block';
+
+  } catch (err) {
+    document.getElementById('ai-thinking').style.display = 'none';
+    document.getElementById('recent-tonight').style.display = 'block';
+    showToast('Error: ' + err.message, 'error');
+  }
+}
+
+function logThis(name) {
+  prefillName = name;
+  navigate('log');
+}
+
+function resetSuggest() {
+  document.getElementById('suggestion-result').style.display = 'none';
+  document.getElementById('mood-picker').style.display = 'none';
+  document.getElementById('recent-tonight').style.display = 'block';
+  currentMoods = {};
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+}
+
+function renderTonightRecent() {
+  const meals = DB.load().slice(0, 5);
+  const el = document.getElementById('recent-list-tonight');
+  const container = document.getElementById('recent-tonight');
+  if (meals.length === 0) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+  el.innerHTML = meals.map(m => `
+    <div class="meal-card" onclick="openDetail('${m.id}')">
+      ${m.photo ? `<img class="meal-card-img" src="${m.photo}" alt="${m.name}" loading="lazy">` : ''}
+      <div class="meal-card-body">
+        <div class="meal-card-meta">
+          <span class="meal-card-name">${m.name}</span>
+          <span class="meal-card-rating">${'⭐'.repeat(m.rating || 0)}</span>
+        </div>
+        <div class="meal-card-footer">
+          <span class="meal-date">${timeAgo(m.createdAt)}</span>
+          ${m.category ? `<span class="meal-category-badge cat-${m.category.toLowerCase().replace(/\s+/g,'-')}">${m.category}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════
+// LOG FORM
+// ══════════════════════════════════════
+function resetLogForm() {
+  document.getElementById('log-name').value = '';
+  document.getElementById('log-notes').value = '';
+  document.getElementById('log-date').value = new Date().toISOString().slice(0, 16);
+  currentRating = 0;
+  currentPhotoB64 = null;
+  document.getElementById('photo-preview').style.display = 'none';
+  document.getElementById('photo-placeholder').style.display = 'block';
+  document.getElementById('photo-area').classList.remove('has-photo');
+  document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#cat-chips .chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('voice-transcript').textContent = '';
+}
+
+function selectCat(el) {
+  document.querySelectorAll('#cat-chips .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setRating(val) {
+  currentRating = val;
+  document.querySelectorAll('.star-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.val) <= val);
+  });
+}
+
+function handlePhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentPhotoB64 = e.target.result;
+    const preview = document.getElementById('photo-preview');
+    preview.src = currentPhotoB64;
+    preview.style.display = 'block';
+    document.getElementById('photo-placeholder').style.display = 'none';
+    document.getElementById('photo-area').classList.add('has-photo');
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveMeal() {
+  const name = document.getElementById('log-name').value.trim();
+  if (!name) { showToast('Please enter a meal name', 'error'); return; }
+
+  const cat = document.querySelector('#cat-chips .chip.selected');
+  const dateVal = document.getElementById('log-date').value;
+
+  const meal = {
+    name,
+    category: cat ? cat.dataset.cat : null,
+    notes: document.getElementById('log-notes').value.trim(),
+    rating: currentRating || null,
+    photo: currentPhotoB64,
+    date: dateVal ? new Date(dateVal).toISOString() : new Date().toISOString()
+  };
+  meal.createdAt = meal.date;
+
+  DB.add(meal);
+  showToast('Meal saved! 🍽️', 'success');
+  resetLogForm();
+  navigate('history');
+}
+
+// ══════════════════════════════════════
+// VOICE
+// ══════════════════════════════════════
+function toggleVoice() {
+  if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
+    showToast('Voice not supported on this browser', 'error');
+    return;
+  }
+
+  if (isRecording) {
+    recognition && recognition.stop();
+    return;
+  }
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-AU';
+
+  recognition.onstart = () => {
+    isRecording = true;
+    document.getElementById('voice-btn').classList.add('recording');
+    document.getElementById('voice-btn-text').textContent = 'Tap to stop';
+  };
+
+  recognition.onresult = e => {
+    let transcript = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      transcript += e.results[i][0].transcript;
+    }
+    document.getElementById('voice-transcript').textContent = transcript;
+    if (e.results[e.results.length - 1].isFinal) {
+      const notes = document.getElementById('log-notes');
+      notes.value = (notes.value + ' ' + transcript).trim();
+      document.getElementById('voice-transcript').textContent = '';
+    }
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    document.getElementById('voice-btn').classList.remove('recording');
+    document.getElementById('voice-btn-text').textContent = 'Dictate notes';
+  };
+
+  recognition.onerror = () => recognition.stop();
+  recognition.start();
+}
+
+// ══════════════════════════════════════
+// HISTORY
+// ══════════════════════════════════════
+function setFilter(el, filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderHistory();
+}
+
+function renderHistory() {
+  let meals = DB.load();
+  if (currentFilter !== 'all') meals = meals.filter(m => m.category === currentFilter);
+
+  const countEl = document.getElementById('history-count');
+  countEl.textContent = `${DB.load().length} meals logged`;
+
+  const listEl = document.getElementById('history-list');
+
+  if (meals.length === 0) {
+    listEl.innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">🍴</div>
+        <h3>Nothing here yet</h3>
+        <p>${currentFilter === 'all' ? 'Start logging meals to build your food history.' : `No ${currentFilter} meals logged yet.`}</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Group by date
+  const grouped = {};
+  meals.forEach(m => {
+    const d = formatDate(m.createdAt);
+    if (!grouped[d]) grouped[d] = [];
+    grouped[d].push(m);
+  });
+
+  listEl.innerHTML = Object.entries(grouped).map(([date, ms]) => `
+    <div class="date-divider">${date}</div>
+    ${ms.map(m => `
+      <div class="meal-card">
+        ${m.photo ? `<img class="meal-card-img" src="${m.photo}" alt="${m.name}" loading="lazy" onclick="openDetail('${m.id}')">` : ''}
+        <div class="meal-card-body">
+          <div class="meal-card-meta">
+            <span class="meal-card-name" onclick="openDetail('${m.id}')">${m.name}</span>
+            <span class="meal-card-rating">${'⭐'.repeat(m.rating || 0)}</span>
+          </div>
+          ${m.notes ? `<p class="meal-card-notes">${m.notes}</p>` : ''}
+          <div class="meal-card-footer">
+            <span class="meal-date">${formatTime(m.createdAt)}</span>
+            ${m.category ? `<span class="meal-category-badge cat-${m.category.toLowerCase().replace(/\s+/g,'-')}">${m.category}</span>` : ''}
+          </div>
+          <div class="meal-card-actions">
+            <button class="btn-icon" onclick="openDetail('${m.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              View
+            </button>
+            <button class="btn-icon danger" onclick="deleteMeal('${m.id}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('')}
+  `).join('');
+}
+
+function deleteMeal(id) {
+  if (!confirm('Delete this meal?')) return;
+  DB.delete(id);
+  renderHistory();
+  showToast('Meal deleted');
+}
+
+// ══════════════════════════════════════
+// DETAIL MODAL
+// ══════════════════════════════════════
+function openDetail(id) {
+  const meal = DB.load().find(m => m.id === id);
+  if (!meal) return;
+
+  const img = document.getElementById('detail-img');
+  if (meal.photo) { img.src = meal.photo; img.style.display = 'block'; }
+  else { img.style.display = 'none'; }
+
+  document.getElementById('detail-name').textContent = meal.name;
+  document.getElementById('detail-meta').textContent =
+    [meal.category, '⭐'.repeat(meal.rating || 0), formatDate(meal.createdAt) + ' ' + formatTime(meal.createdAt)]
+    .filter(Boolean).join(' · ');
+
+  const notesEl = document.getElementById('detail-notes');
+  if (meal.notes) { notesEl.textContent = meal.notes; notesEl.style.display = 'block'; }
+  else { notesEl.style.display = 'none'; }
+
+  document.getElementById('detail-modal').classList.add('open');
+}
+
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detail-modal')) return;
+  document.getElementById('detail-modal').classList.remove('open');
+}
+
+// ══════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════
+function openSettings() {
+  document.getElementById('api-key-input').value = DB.getApiKey();
+  document.getElementById('settings-modal').classList.add('open');
+}
+
+function closeSettings(e) {
+  if (e && e.target !== document.getElementById('settings-modal')) return;
+  document.getElementById('settings-modal').classList.remove('open');
+}
+
+function saveSettings() {
+  const key = document.getElementById('api-key-input').value.trim();
+  DB.setApiKey(key);
+  document.getElementById('settings-modal').classList.remove('open');
+  showToast('Settings saved ✓', 'success');
+}
+
+function clearAllData() {
+  if (!confirm('Delete ALL meal data? This cannot be undone.')) return;
+  localStorage.removeItem('mealmate_v1');
+  document.getElementById('settings-modal').classList.remove('open');
+  showToast('All data cleared');
+  renderHistory();
+  renderTonightRecent();
+}
+
+// ══════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+  if (mins < 2) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days === 1) return 'yesterday';
+  if (days < 7) return `${days} days ago`;
+  return `${Math.floor(days/7)}w ago`;
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  if (d.toDateString() === now.toDateString()) return 'Today';
+  const yesterday = new Date(now); yesterday.setDate(now.getDate()-1);
+  if (d.toDateString() === yesterday.toDateString()) return 'Yesterday';
+  return d.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function formatTime(iso) {
+  return new Date(iso).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+function init() {
+  // Set tonight date
+  const now = new Date();
+  const parts = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' }).split(' ');
+  const hour = now.getHours();
+  const period = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  document.getElementById('tonight-date').textContent = `${parts[0]} ${period}`;
+
+  // Set log date default
+  document.getElementById('log-date').value = now.toISOString().slice(0, 16);
+
+  // Render recent
+  renderTonightRecent();
+}
+
+init();
+</script>
+</body>
+</html>
