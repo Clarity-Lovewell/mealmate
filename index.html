@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MealMate">
+<meta name="theme-color" content="#C4622D">
 <title>MealMate 🍽️</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -93,9 +97,7 @@
   }
   .nav-btn.active { color: var(--terra); }
   .nav-btn svg { width: 24px; height: 24px; }
-  .nav-btn.center-btn {
-    position: relative;
-  }
+  .nav-btn.center-btn { position: relative; }
   .nav-btn.center-btn .center-icon {
     width: 52px; height: 52px;
     background: var(--terra);
@@ -113,13 +115,7 @@
   .nav-btn.center-btn svg { color: white; }
 
   /* ── CARDS ── */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
+  .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
   .card-pad { padding: 20px; }
 
   /* ── SCROLL AREA ── */
@@ -145,564 +141,194 @@
     font-size: 64px;
     opacity: 0.15;
   }
-  .suggest-hero h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
+  .suggest-hero h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
   .suggest-hero p { font-size: 14px; opacity: 0.75; margin-bottom: 20px; }
   .btn-suggest {
-    background: var(--terra);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: transform 0.15s, background 0.15s;
+    background: var(--terra); color: white; border: none; border-radius: 50px; padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s, background 0.15s;
   }
   .btn-suggest:active { transform: scale(0.97); background: var(--terra-light); }
 
-  /* Mood picker */
   .mood-section { margin-bottom: 16px; }
-  .section-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
+  .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
   .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip {
-    padding: 8px 16px;
-    border-radius: 50px;
-    border: 1.5px solid var(--border);
-    background: var(--card);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--brown);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
+    padding: 8px 16px; border-radius: 50px; border: 1.5px solid var(--border);
+    background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 14px;
+    font-weight: 500; color: var(--brown); cursor: pointer; transition: all 0.15s; user-select: none;
   }
-  .chip:active, .chip.selected {
-    background: var(--terra);
-    border-color: var(--terra);
-    color: white;
-  }
+  .chip:active, .chip.selected { background: var(--terra); border-color: var(--terra); color: white; }
 
-  /* AI result */
-  #suggestion-result {
-    display: none;
-    animation: slideUp 0.3s ease;
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .suggestion-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    border: 1.5px solid var(--terra-light);
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  .suggestion-card-header {
-    background: var(--terra-pale);
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .suggestion-number {
-    width: 28px; height: 28px;
-    background: var(--terra);
-    color: white;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .suggestion-card-header h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--brown);
-  }
+  #suggestion-result { display: none; animation: slideUp 0.3s ease; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .suggestion-card { background: var(--card); border-radius: var(--radius); border: 1.5px solid var(--terra-light); overflow: hidden; margin-bottom: 12px; }
+  .suggestion-card-header { background: var(--terra-pale); padding: 14px 18px; display: flex; align-items: center; gap: 10px; }
+  .suggestion-number { width: 28px; height: 28px; background: var(--terra); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .suggestion-card-header h3 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--brown); }
   .suggestion-card-body { padding: 14px 18px; }
   .suggestion-card-body p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-  .btn-log-this {
-    margin-top: 12px;
-    background: var(--sage);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 9px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .btn-log-this { margin-top: 12px; background: var(--sage); color: white; border: none; border-radius: 50px; padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
   .btn-log-this:active { opacity: 0.8; }
 
-  .ai-thinking {
-    display: none;
-    text-align: center;
-    padding: 32px;
-    color: var(--muted);
-  }
-  .ai-thinking .spinner {
-    width: 36px; height: 36px;
-    border: 3px solid var(--border);
-    border-top-color: var(--terra);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 12px;
-  }
+  .ai-thinking { display: none; text-align: center; padding: 32px; color: var(--muted); }
+  .ai-thinking .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--terra); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   /* ── LOG SCREEN ── */
   #screen-log .scroll-area { padding-top: 8px; }
 
   .form-group { margin-bottom: 16px; }
-  .form-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--brown);
-    margin-bottom: 8px;
-    display: block;
-  }
+  .form-label { font-size: 13px; font-weight: 600; color: var(--brown); margin-bottom: 8px; display: block; }
   .form-input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--card);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--brown);
-    outline: none;
-    transition: border-color 0.15s;
+    width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--brown); outline: none; transition: border-color 0.15s;
   }
   .form-input:focus { border-color: var(--terra); }
   textarea.form-input { resize: none; min-height: 90px; line-height: 1.5; }
 
-  /* Photo area */
-  .photo-area {
-    border: 2px dashed var(--border);
-    border-radius: var(--radius-sm);
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    background: var(--cream);
-  }
+  .photo-area { border: 2px dashed var(--border); border-radius: var(--radius-sm); padding: 24px; text-align: center; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: var(--cream); }
   .photo-area:active, .photo-area.has-photo { border-color: var(--terra); background: var(--terra-pale); }
   .photo-area p { font-size: 14px; color: var(--muted); margin-top: 8px; }
-  .photo-preview {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: var(--radius-sm);
-    display: none;
-  }
+  .photo-preview { width: 100%; max-height: 200px; object-fit: cover; border-radius: var(--radius-sm); display: none; }
   #photo-input { display: none; }
 
-  /* Voice btn */
   .voice-btn {
-    width: 100%;
-    padding: 14px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--card);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--brown);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.15s;
-    font-weight: 500;
+    width: 100%; padding: 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--brown);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: all 0.15s; font-weight: 500;
   }
-  .voice-btn.recording {
-    background: #FEE2E2;
-    border-color: #EF4444;
-    color: #EF4444;
-    animation: pulse 1.2s ease infinite;
-  }
+  .voice-btn.recording { background: #FEE2E2; border-color: #EF4444; color: #EF4444; animation: pulse 1.2s ease infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
 
-  /* Rating stars */
   .star-row { display: flex; gap: 8px; }
-  .star-btn {
-    background: none;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    transition: transform 0.1s;
-    padding: 4px;
-    opacity: 0.3;
-    filter: grayscale(1);
-  }
+  .star-btn { background: none; border: none; font-size: 28px; cursor: pointer; transition: transform 0.1s; padding: 4px; opacity: 0.3; filter: grayscale(1); }
   .star-btn.active { opacity: 1; filter: none; transform: scale(1.1); }
 
-  /* Save btn */
-  .btn-save {
-    width: 100%;
-    padding: 16px;
-    background: var(--terra);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.15s;
-    margin-top: 8px;
-  }
+  .btn-save { width: 100%; padding: 16px; background: var(--terra); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.15s; margin-top: 8px; }
   .btn-save:active { opacity: 0.85; transform: scale(0.99); }
 
   /* ── HISTORY SCREEN ── */
-  .filter-row {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 0 16px 12px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
+  .filter-row { display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .filter-row::-webkit-scrollbar { display: none; }
-  .filter-chip {
-    padding: 7px 16px;
-    border-radius: 50px;
-    border: 1.5px solid var(--border);
-    background: var(--card);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
-  .filter-chip.active {
-    background: var(--brown);
-    border-color: var(--brown);
-    color: white;
-  }
+  .filter-chip { padding: 7px 16px; border-radius: 50px; border: 1.5px solid var(--border); background: var(--card); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; transition: all 0.15s; flex-shrink: 0; }
+  .filter-chip.active { background: var(--brown); border-color: var(--brown); color: white; }
 
-  /* Meal cards in history */
-  .meal-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-bottom: 12px;
-    transition: transform 0.15s;
-  }
+  .meal-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; margin-bottom: 12px; transition: transform 0.15s; }
   .meal-card:active { transform: scale(0.99); }
-  .meal-card-img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    display: block;
-  }
+  .meal-card-img { width: 100%; height: 160px; object-fit: cover; display: block; }
   .meal-card-body { padding: 14px 16px; }
-  .meal-card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .meal-card-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.3;
-    flex: 1;
-  }
+  .meal-card-meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .meal-card-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; line-height: 1.3; flex: 1; }
   .meal-card-rating { font-size: 14px; flex-shrink: 0; }
-  .meal-card-notes {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 6px;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .meal-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
+  .meal-card-notes { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .meal-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
   .meal-date { font-size: 12px; color: var(--muted); }
-  .meal-category-badge {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 50px;
-    background: var(--sage-pale);
-    color: var(--sage);
-  }
-  .meal-card-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-    border-top: 1px solid var(--border);
-    padding-top: 10px;
-  }
-  .btn-icon {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 7px 12px;
-    font-size: 13px;
-    color: var(--muted);
-    cursor: pointer;
-    display: flex; align-items: center; gap: 5px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
+  .meal-category-badge { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 50px; }
+  .meal-card-actions { display: flex; gap: 8px; margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+  .btn-icon { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 12px; font-size: 13px; color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; }
   .btn-icon:active { background: var(--cream2); }
   .btn-icon.danger:active { background: #FEE2E2; color: #EF4444; border-color: #EF4444; }
 
-  .empty-state {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--muted);
-  }
+  .empty-state { text-align: center; padding: 48px 24px; color: var(--muted); }
   .empty-state .emoji { font-size: 48px; margin-bottom: 16px; }
   .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--brown); margin-bottom: 8px; }
   .empty-state p { font-size: 14px; line-height: 1.6; }
 
-  /* ── SETTINGS MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(44,24,16,0.5);
-    z-index: 200;
-    align-items: flex-end;
-    backdrop-filter: blur(4px);
-  }
+  /* ── MODALS ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(44,24,16,0.5); z-index: 200; align-items: flex-end; backdrop-filter: blur(4px); }
   .modal-overlay.open { display: flex; }
-  .modal-sheet {
-    background: var(--cream);
-    border-radius: 24px 24px 0 0;
-    padding: 24px 24px 40px;
-    width: 100%;
-    max-height: 85dvh;
-    overflow-y: auto;
-    animation: sheetUp 0.3s ease;
-  }
-  @keyframes sheetUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 40px; height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 20px;
-  }
-  .modal-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  .settings-row {
-    display: flex; flex-direction: column; gap: 8px;
-    margin-bottom: 16px;
-  }
-  .settings-label { font-size: 13px; font-weight: 600; color: var(--brown); }
-  .settings-hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .api-key-input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--brown);
-    background: var(--card);
-    outline: none;
-    font-family: monospace;
-  }
+  .modal-sheet { background: var(--cream); border-radius: 24px 24px 0 0; padding: 24px 24px 40px; width: 100%; max-height: 85dvh; overflow-y: auto; animation: sheetUp 0.3s ease; }
+  @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+  .btn-close-modal { position: absolute; top: 20px; right: 20px; background: var(--cream2); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+
+  /* ── SETTINGS SECTIONS ── */
+  .settings-section { padding: 16px 0; border-top: 1px solid var(--border); }
+  .settings-section:first-of-type { border-top: none; padding-top: 0; }
+  .settings-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .settings-hint { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+  .api-key-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: monospace; font-size: 14px; color: var(--brown); background: var(--card); outline: none; }
   .api-key-input:focus { border-color: var(--terra); }
-  .btn-save-settings {
-    width: 100%;
-    padding: 14px;
-    background: var(--terra);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
-  }
-  .btn-close-modal {
-    position: absolute;
-    top: 20px; right: 20px;
-    background: var(--cream2);
-    border: none;
-    border-radius: 50%;
-    width: 36px; height: 36px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted);
-  }
-  .danger-zone {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-  .btn-danger {
-    width: 100%;
-    padding: 12px;
-    background: none;
-    color: #EF4444;
-    border: 1.5px solid #FCA5A5;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
-  }
+  .btn-save-settings { width: 100%; padding: 13px; background: var(--terra); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: opacity 0.15s; }
+  .btn-save-settings:active { opacity: 0.85; }
+
+  /* Install card */
+  .install-card { background: var(--terra-pale); border: 1.5px solid var(--terra-light); border-radius: var(--radius-sm); padding: 14px 16px; }
+  .install-card p { font-size: 13px; color: var(--brown); line-height: 1.65; }
+  .install-card.installed { background: var(--sage-pale); border-color: var(--sage-light); }
+  .btn-install { display: inline-flex; align-items: center; gap: 8px; background: var(--terra); color: white; border: none; border-radius: 50px; padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  .install-steps { margin-top: 8px; }
+  .install-steps li { font-size: 13px; color: var(--brown); margin-top: 6px; line-height: 1.5; list-style: none; padding-left: 0; }
+
+  /* Dev notes */
+  .input-row { display: flex; gap: 8px; align-items: stretch; }
+  .input-row .form-input { flex: 1; padding: 10px 12px; font-size: 14px; }
+  .btn-add-small { padding: 10px 16px; background: var(--terra); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+  .devnote-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .devnote-item:last-child { border-bottom: none; }
+  .devnote-checkbox { width: 18px; height: 18px; accent-color: var(--terra); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .devnote-text { flex: 1; font-size: 14px; line-height: 1.5; }
+  .devnote-del { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; line-height: 1; padding: 0 2px; flex-shrink: 0; opacity: 0.6; }
+  .devnote-del:active { opacity: 1; color: #EF4444; }
+  .devnote-archived .devnote-text { text-decoration: line-through; color: var(--muted); }
+
+  .archive-toggle-btn { background: none; border: none; color: var(--muted); font-size: 13px; cursor: pointer; padding: 8px 0 4px; display: flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .btn-secondary { width: 100%; padding: 12px; background: none; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: var(--brown); cursor: pointer; margin-top: 8px; transition: background 0.15s; }
+  .btn-secondary:active { background: var(--cream2); }
+  .btn-secondary.sage { border-color: var(--sage-light); color: var(--sage); }
+  .btn-secondary.sage:active { background: var(--sage-pale); }
+
+  /* Category editor */
+  .cat-edit-row { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .cat-edit-row:last-child { border-bottom: none; }
+  .cat-emoji-badge { width: 32px; height: 32px; background: var(--cream2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cat-name-label { flex: 1; font-size: 14px; font-weight: 500; }
+  .cat-row-btn { background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px 6px; border-radius: 6px; transition: background 0.15s; display: flex; align-items: center; }
+  .cat-row-btn:hover { background: var(--cream2); }
+  .cat-row-btn.del:hover { background: #FEE2E2; color: #EF4444; }
+
+  .cat-inline-edit { display: flex; gap: 6px; align-items: center; flex: 1; }
+  .emoji-input { width: 54px !important; padding: 8px 6px !important; text-align: center; font-size: 18px !important; }
+  .cat-edit-row .form-input { padding: 8px 10px; font-size: 14px; }
+
+  /* Data section buttons */
+  .data-btn-row { display: flex; gap: 10px; }
+  .data-btn-row .btn-save-settings { flex: 1; margin-top: 0; font-size: 14px; }
+
+  /* Danger zone */
+  .danger-zone { padding-top: 16px; border-top: 1px solid var(--border); margin-top: 4px; }
+  .btn-danger { width: 100%; padding: 12px; background: none; color: #EF4444; border: 1.5px solid #FCA5A5; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+  .btn-danger:active { background: #FEE2E2; }
+
+  /* ── DETAIL MODAL ── */
+  .detail-modal .modal-sheet { padding-bottom: env(safe-area-inset-bottom, 40px); }
+  .detail-img { width: calc(100% + 48px); margin: -24px -24px 20px; max-height: 250px; object-fit: cover; display: none; }
+  .detail-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .detail-meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .detail-notes { font-size: 15px; line-height: 1.7; color: var(--brown); background: var(--cream); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px; }
 
   /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    top: 20px; left: 50%;
-    transform: translateX(-50%) translateY(-80px);
-    background: var(--brown);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 500;
-    z-index: 300;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-    max-width: calc(100vw - 48px);
-  }
+  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px); background: var(--brown); color: white; padding: 12px 20px; border-radius: 50px; font-size: 14px; font-weight: 500; z-index: 300; transition: transform 0.3s ease; white-space: nowrap; max-width: calc(100vw - 48px); }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--sage); }
   .toast.error { background: #EF4444; }
 
-  /* ── DETAIL MODAL ── */
-  .detail-modal .modal-sheet { padding-bottom: env(safe-area-inset-bottom, 40px); }
-  .detail-img {
-    width: calc(100% + 48px);
-    margin: -24px -24px 20px;
-    max-height: 250px;
-    object-fit: cover;
-    display: none;
-  }
-  .detail-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .detail-meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
-  .detail-notes {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--brown);
-    background: var(--cream);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-
   /* ── UTILS ── */
   .mt-8 { margin-top: 8px; }
   .mt-16 { margin-top: 16px; }
-
-  /* Divider date header */
-  .date-divider {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 12px 0 6px;
-  }
-
-  /* Stats bar */
-  .stats-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .stat-card {
-    flex: 1;
-    background: var(--card);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
-    padding: 14px 12px;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--terra);
-  }
-  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 500; }
-
-  /* Swipe hint */
-  .voice-transcript {
-    font-size: 14px;
-    color: var(--muted);
-    font-style: italic;
-    min-height: 20px;
-    margin-top: 6px;
-    text-align: center;
-  }
-
-  /* Category color map */
-  .cat-asian { background: #FEF3C7; color: #92400E; }
-  .cat-italian { background: #FDE8E8; color: #9B1C1C; }
-  .cat-healthy { background: var(--sage-pale); color: var(--sage); }
-  .cat-comfort { background: #EDE9FE; color: #5B21B6; }
-  .cat-quick { background: #DBEAFE; color: #1E40AF; }
-  .cat-takeaway { background: #FEF3C7; color: #92400E; }
-  .cat-homestyle { background: #FCE7F3; color: #9D174D; }
-  .cat-mexican { background: #FEF3C7; color: #92400E; }
-  .cat-seafood { background: #CFFAFE; color: #155E75; }
-  .cat-middle-eastern { background: #FEF3C7; color: #92400E; }
-  .cat-other { background: var(--cream2); color: var(--muted); }
+  .date-divider { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 12px 0 6px; }
+  .voice-transcript { font-size: 14px; color: var(--muted); font-style: italic; min-height: 20px; margin-top: 6px; text-align: center; }
 </style>
 </head>
 <body>
 
 <!-- ══════════════════════════════════
-     SCREEN: TONIGHT (AI Suggestions)
+     SCREEN: TONIGHT
 ═══════════════════════════════════ -->
 <div id="screen-tonight" class="screen active">
   <div class="screen-header">
@@ -719,7 +345,6 @@
     </div>
   </div>
   <div class="scroll-area">
-
     <div class="suggest-hero">
       <h2>What are we having?</h2>
       <p>Let me suggest something based on what you've been eating — and how you're feeling tonight.</p>
@@ -729,11 +354,9 @@
       </button>
     </div>
 
-    <!-- Mood pickers (shown during suggest flow) -->
     <div id="mood-picker" style="display:none;">
       <div class="card card-pad" style="margin-bottom:16px;">
         <p style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;margin-bottom:16px;">How are you feeling tonight?</p>
-
         <div class="mood-section">
           <p class="section-label">Energy level</p>
           <div class="chip-row" id="chips-energy">
@@ -742,7 +365,6 @@
             <div class="chip" data-group="energy" onclick="selectChip(this)">⚡ Energetic</div>
           </div>
         </div>
-
         <div class="mood-section" style="margin-top:14px;">
           <p class="section-label">Craving</p>
           <div class="chip-row" id="chips-craving">
@@ -753,7 +375,6 @@
             <div class="chip" data-group="craving" onclick="selectChip(this)">🥩 Hearty</div>
           </div>
         </div>
-
         <div class="mood-section" style="margin-top:14px;">
           <p class="section-label">Effort</p>
           <div class="chip-row" id="chips-effort">
@@ -762,28 +383,21 @@
             <div class="chip" data-group="effort" onclick="selectChip(this)">👩‍🍳 Proper cook</div>
           </div>
         </div>
-
-        <button class="btn-save mt-16" onclick="getSuggestions()" id="btn-get-suggestions">
-          ✨ Get suggestions
-        </button>
+        <button class="btn-save mt-16" onclick="getSuggestions()">✨ Get suggestions</button>
       </div>
     </div>
 
-    <!-- AI thinking -->
     <div class="ai-thinking" id="ai-thinking">
       <div class="spinner"></div>
       <p style="font-size:14px;">Thinking about what you'd enjoy...</p>
     </div>
 
-    <!-- Results -->
     <div id="suggestion-result"></div>
 
-    <!-- Recent meals quick view -->
     <div id="recent-tonight">
       <p class="section-label" style="margin-bottom:10px;">Recently eaten</p>
       <div id="recent-list-tonight"></div>
     </div>
-
   </div>
 </div>
 
@@ -796,33 +410,15 @@
     <p>What did you eat?</p>
   </div>
   <div class="scroll-area">
-
     <div class="card card-pad">
-
-      <!-- Meal name -->
       <div class="form-group">
         <label class="form-label">Meal name *</label>
         <input type="text" id="log-name" class="form-input" placeholder="e.g. Pasta carbonara" autocomplete="off">
       </div>
-
-      <!-- Category -->
       <div class="form-group">
         <label class="form-label">Category</label>
-        <div class="chip-row" style="flex-wrap:wrap;" id="cat-chips">
-          <div class="chip" data-cat="Asian" onclick="selectCat(this)">🍜 Asian</div>
-          <div class="chip" data-cat="Italian" onclick="selectCat(this)">🍝 Italian</div>
-          <div class="chip" data-cat="Healthy" onclick="selectCat(this)">🥗 Healthy</div>
-          <div class="chip" data-cat="Comfort" onclick="selectCat(this)">🫂 Comfort</div>
-          <div class="chip" data-cat="Quick" onclick="selectCat(this)">⚡ Quick</div>
-          <div class="chip" data-cat="Takeaway" onclick="selectCat(this)">🥡 Takeaway</div>
-          <div class="chip" data-cat="Homestyle" onclick="selectCat(this)">🥘 Homestyle</div>
-          <div class="chip" data-cat="Mexican" onclick="selectCat(this)">🌮 Mexican</div>
-          <div class="chip" data-cat="Seafood" onclick="selectCat(this)">🐟 Seafood</div>
-          <div class="chip" data-cat="Other" onclick="selectCat(this)">✨ Other</div>
-        </div>
+        <div class="chip-row" style="flex-wrap:wrap;" id="cat-chips"></div>
       </div>
-
-      <!-- Notes / voice -->
       <div class="form-group">
         <label class="form-label">Notes</label>
         <textarea id="log-notes" class="form-input" placeholder="How was it? Any tweaks next time?"></textarea>
@@ -832,8 +428,6 @@
         </button>
         <p class="voice-transcript" id="voice-transcript"></p>
       </div>
-
-      <!-- Photo -->
       <div class="form-group">
         <label class="form-label">Photo</label>
         <div class="photo-area" id="photo-area" onclick="document.getElementById('photo-input').click()">
@@ -845,8 +439,6 @@
         </div>
         <input type="file" id="photo-input" accept="image/*" capture="environment" onchange="handlePhoto(this)">
       </div>
-
-      <!-- Rating -->
       <div class="form-group">
         <label class="form-label">Rating</label>
         <div class="star-row" id="star-row">
@@ -857,16 +449,12 @@
           <button class="star-btn" data-val="5" onclick="setRating(5)">⭐</button>
         </div>
       </div>
-
-      <!-- When -->
       <div class="form-group">
         <label class="form-label">When</label>
         <input type="datetime-local" id="log-date" class="form-input">
       </div>
-
       <button class="btn-save" onclick="saveMeal()">Save meal 🍽️</button>
     </div>
-
   </div>
 </div>
 
@@ -878,21 +466,7 @@
     <h1>Meal History</h1>
     <p id="history-count">Loading...</p>
   </div>
-
-  <div class="filter-row" id="filter-row">
-    <div class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">All</div>
-    <div class="filter-chip" data-filter="Asian" onclick="setFilter(this,'Asian')">🍜 Asian</div>
-    <div class="filter-chip" data-filter="Italian" onclick="setFilter(this,'Italian')">🍝 Italian</div>
-    <div class="filter-chip" data-filter="Healthy" onclick="setFilter(this,'Healthy')">🥗 Healthy</div>
-    <div class="filter-chip" data-filter="Comfort" onclick="setFilter(this,'Comfort')">🫂 Comfort</div>
-    <div class="filter-chip" data-filter="Quick" onclick="setFilter(this,'Quick')">⚡ Quick</div>
-    <div class="filter-chip" data-filter="Takeaway" onclick="setFilter(this,'Takeaway')">🥡 Takeaway</div>
-    <div class="filter-chip" data-filter="Homestyle" onclick="setFilter(this,'Homestyle')">🥘 Homestyle</div>
-    <div class="filter-chip" data-filter="Mexican" onclick="setFilter(this,'Mexican')">🌮 Mexican</div>
-    <div class="filter-chip" data-filter="Seafood" onclick="setFilter(this,'Seafood')">🐟 Seafood</div>
-    <div class="filter-chip" data-filter="Other" onclick="setFilter(this,'Other')">✨ Other</div>
-  </div>
-
+  <div class="filter-row" id="filter-row"></div>
   <div class="scroll-area" id="history-list" style="padding-top:0;"></div>
 </div>
 
@@ -927,18 +501,72 @@
     </button>
     <h2 class="modal-title">Settings</h2>
 
-    <div class="settings-row">
-      <span class="settings-label">Anthropic API Key</span>
-      <span class="settings-hint">Needed for AI suggestions. Get yours at <strong>console.anthropic.com</strong>. Your key is stored only on this device.</span>
-      <input type="password" id="api-key-input" class="api-key-input" placeholder="sk-ant-...">
+    <!-- INSTALL APP -->
+    <div class="settings-section" style="border-top:none;padding-top:0;">
+      <p class="settings-section-title">📱 Install App</p>
+      <div id="install-section-content"></div>
     </div>
 
-    <button class="btn-save-settings" onclick="saveSettings()">Save settings</button>
+    <!-- API KEY -->
+    <div class="settings-section">
+      <p class="settings-section-title">🔑 API Key</p>
+      <p class="settings-hint">Needed for AI suggestions. Get yours at <strong>console.anthropic.com</strong>. Stored only on this device.</p>
+      <input type="password" id="api-key-input" class="api-key-input" placeholder="sk-ant-...">
+      <button class="btn-save-settings" onclick="saveApiKey()">Save API Key</button>
+    </div>
 
+    <!-- DEV NOTES -->
+    <div class="settings-section">
+      <p class="settings-section-title">📝 Dev Notes</p>
+      <p class="settings-hint">Jot down ideas, bugs, or changes — tick to mark done and archive them, then export to share with Claude.</p>
+      <div class="input-row" style="margin-bottom:12px;">
+        <input type="text" id="devnote-input" class="form-input" placeholder="Add a note or feature idea..." onkeydown="if(event.key==='Enter')addDevNote()">
+        <button class="btn-add-small" onclick="addDevNote()">Add</button>
+      </div>
+      <div id="devnotes-active-list"></div>
+      <div style="margin-top:4px;">
+        <button class="archive-toggle-btn" onclick="toggleDevArchive()" id="archive-toggle-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="archive-caret-icon"><polyline points="9 18 15 12 9 6"/></svg>
+          Archived (<span id="archive-count">0</span>)
+        </button>
+        <div id="devnotes-archived-list" style="display:none;"></div>
+      </div>
+      <button class="btn-secondary sage" onclick="exportDevNotes()">
+        ↓ Export notes as text
+      </button>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="settings-section">
+      <p class="settings-section-title">🏷️ Categories</p>
+      <div id="categories-editor-list"></div>
+      <div style="margin-top:14px;">
+        <p style="font-size:12px;font-weight:600;color:var(--brown);margin-bottom:8px;">Add new category</p>
+        <div class="input-row">
+          <input type="text" id="new-cat-emoji" class="form-input emoji-input" placeholder="🍽️" maxlength="4">
+          <input type="text" id="new-cat-name" class="form-input" placeholder="Category name" onkeydown="if(event.key==='Enter')addCategory()">
+          <button class="btn-add-small" onclick="addCategory()">Add</button>
+        </div>
+      </div>
+      <button class="btn-secondary" style="margin-top:8px;" onclick="resetCategories()">↺ Reset to defaults</button>
+    </div>
+
+    <!-- DATA -->
+    <div class="settings-section">
+      <p class="settings-section-title">💾 Data Backup</p>
+      <p class="settings-hint">Export saves all meals, categories, dev notes, and your API key. Import will overwrite all current data.</p>
+      <div class="data-btn-row">
+        <button class="btn-save-settings" onclick="exportAllData()">↓ Export backup</button>
+        <button class="btn-save-settings" onclick="document.getElementById('import-input').click()" style="background:var(--sage);">↑ Import backup</button>
+      </div>
+    </div>
+
+    <!-- DANGER ZONE -->
     <div class="danger-zone">
-      <p style="font-size:13px;font-weight:600;color:var(--brown);margin-bottom:6px;">Danger Zone</p>
+      <p style="font-size:13px;font-weight:600;color:var(--brown);margin-bottom:4px;">Danger Zone</p>
       <button class="btn-danger" onclick="clearAllData()">🗑️ Clear all meal data</button>
     </div>
+
   </div>
 </div>
 
@@ -961,7 +589,39 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- Hidden import input -->
+<input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(this)">
+
 <script>
+// ══════════════════════════════════════
+// CONSTANTS
+// ══════════════════════════════════════
+const DEFAULT_CATEGORIES = [
+  {name:'Asian',    emoji:'🍜'},
+  {name:'Italian',  emoji:'🍝'},
+  {name:'Healthy',  emoji:'🥗'},
+  {name:'Comfort',  emoji:'🫂'},
+  {name:'Quick',    emoji:'⚡'},
+  {name:'Takeaway', emoji:'🥡'},
+  {name:'Homestyle',emoji:'🥘'},
+  {name:'Mexican',  emoji:'🌮'},
+  {name:'Seafood',  emoji:'🐟'},
+  {name:'Other',    emoji:'✨'},
+];
+
+const CAT_PALETTE = [
+  {bg:'#FEF3C7',color:'#92400E'},
+  {bg:'#FDE8E8',color:'#9B1C1C'},
+  {bg:'#EDF4E9',color:'#5C7A4E'},
+  {bg:'#EDE9FE',color:'#5B21B6'},
+  {bg:'#DBEAFE',color:'#1E40AF'},
+  {bg:'#FCE7F3',color:'#9D174D'},
+  {bg:'#CFFAFE',color:'#155E75'},
+  {bg:'#D1FAE5',color:'#065F46'},
+  {bg:'#FEE2E2',color:'#991B1B'},
+  {bg:'#F5F3FF',color:'#6D28D9'},
+];
+
 // ══════════════════════════════════════
 // DATA LAYER
 // ══════════════════════════════════════
@@ -970,9 +630,7 @@ const DB = {
     try { return JSON.parse(localStorage.getItem('mealmate_v1') || '[]'); }
     catch { return []; }
   },
-  save(meals) {
-    localStorage.setItem('mealmate_v1', JSON.stringify(meals));
-  },
+  save(meals) { localStorage.setItem('mealmate_v1', JSON.stringify(meals)); },
   add(meal) {
     const meals = this.load();
     meal.id = Date.now().toString();
@@ -981,13 +639,38 @@ const DB = {
     this.save(meals);
     return meal;
   },
-  delete(id) {
-    const meals = this.load().filter(m => m.id !== id);
-    this.save(meals);
-  },
+  delete(id) { this.save(this.load().filter(m => m.id !== id)); },
   getApiKey() { return localStorage.getItem('mealmate_apikey') || ''; },
   setApiKey(k) { localStorage.setItem('mealmate_apikey', k); }
 };
+
+// ── Categories ──
+function getCategories() {
+  try { return JSON.parse(localStorage.getItem('mealmate_categories')) || DEFAULT_CATEGORIES; }
+  catch { return DEFAULT_CATEGORIES; }
+}
+function saveCategories(cats) {
+  localStorage.setItem('mealmate_categories', JSON.stringify(cats));
+  refreshCategoryUI();
+}
+function getCatStyle(name) {
+  // stable color based on name hash
+  let h = 0;
+  for (const c of (name || '')) h = c.charCodeAt(0) + ((h << 5) - h);
+  return CAT_PALETTE[Math.abs(h) % CAT_PALETTE.length];
+}
+function catBadgeHtml(catName) {
+  if (!catName) return '';
+  const s = getCatStyle(catName);
+  return `<span class="meal-category-badge" style="background:${s.bg};color:${s.color};">${catName}</span>`;
+}
+
+// ── Dev Notes ──
+function getDevNotes() {
+  try { return JSON.parse(localStorage.getItem('mealmate_devnotes')) || {active:[], archived:[]}; }
+  catch { return {active:[], archived:[]}; }
+}
+function saveDevNotes(data) { localStorage.setItem('mealmate_devnotes', JSON.stringify(data)); }
 
 // ══════════════════════════════════════
 // STATE
@@ -999,6 +682,110 @@ let currentMoods = {};
 let recognition = null;
 let isRecording = false;
 let prefillName = '';
+let deferredInstallPrompt = null;
+let archiveVisible = false;
+
+// ══════════════════════════════════════
+// PWA SETUP
+// ══════════════════════════════════════
+function setupPWA() {
+  // Inject web app manifest via blob URL
+  try {
+    const iconSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23C4622D'/><text y='72' x='50' text-anchor='middle' font-size='60'>🍽️</text></svg>`;
+    const manifest = {
+      name: 'MealMate',
+      short_name: 'MealMate',
+      description: 'Your personal meal journal',
+      start_url: './',
+      display: 'standalone',
+      background_color: '#FDF6EC',
+      theme_color: '#C4622D',
+      icons: [
+        { src: `data:image/svg+xml,${iconSvg}`, sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }
+      ]
+    };
+    const mBlob = new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'});
+    const mUrl = URL.createObjectURL(mBlob);
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = mUrl;
+    document.head.appendChild(link);
+  } catch(e) {}
+
+  // Register service worker if available (requires sw.js in repo root — see spec)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {
+      // sw.js not present — install prompt won't fire on Chrome, but iOS Add to Home Screen still works
+    });
+  }
+
+  // Capture Android/Chrome install prompt
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    renderInstallContent();
+  });
+
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+    renderInstallContent();
+    showToast('MealMate installed! ✓', 'success');
+  });
+}
+
+function renderInstallContent() {
+  const el = document.getElementById('install-section-content');
+  if (!el) return;
+
+  const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  if (isInstalled) {
+    el.innerHTML = `<div class="install-card installed"><p>✅ MealMate is installed on your device as an app.</p></div>`;
+    return;
+  }
+
+  if (deferredInstallPrompt) {
+    el.innerHTML = `
+      <div class="install-card">
+        <p>Add MealMate to your home screen for quick access — it works just like a native app.</p>
+        <button class="btn-install" onclick="promptInstall()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v13"/><path d="M5 9l7 7 7-7"/><rect x="3" y="18" width="18" height="3" rx="1"/></svg>
+          Install MealMate
+        </button>
+      </div>`;
+    return;
+  }
+
+  if (isIOS) {
+    el.innerHTML = `
+      <div class="install-card">
+        <p><strong>Add to Home Screen on iPhone/iPad:</strong></p>
+        <ul class="install-steps">
+          <li>1. Tap the <strong>Share</strong> button <span style="font-size:15px;">⎙</span> in Safari's toolbar</li>
+          <li>2. Scroll down and tap <strong>Add to Home Screen</strong></li>
+          <li>3. Tap <strong>Add</strong> — MealMate appears like a native app</li>
+        </ul>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="install-card">
+      <p>In <strong>Chrome</strong> or <strong>Edge</strong>, tap the menu (⋮) then <strong>"Add to Home Screen"</strong> or <strong>"Install app"</strong>.</p>
+      <p style="margin-top:8px;font-size:12px;color:var(--muted);">For the native install banner, add a <code>sw.js</code> file to your GitHub repo — see the spec for details.</p>
+    </div>`;
+}
+
+async function promptInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const result = await deferredInstallPrompt.userChoice;
+  if (result.outcome === 'accepted') {
+    deferredInstallPrompt = null;
+    renderInstallContent();
+  }
+}
 
 // ══════════════════════════════════════
 // NAVIGATION
@@ -1037,11 +824,7 @@ function selectChip(el) {
 
 async function getSuggestions() {
   const apiKey = DB.getApiKey();
-  if (!apiKey) {
-    showToast('Add your API key in Settings first', 'error');
-    openSettings();
-    return;
-  }
+  if (!apiKey) { showToast('Add your API key in Settings first', 'error'); openSettings(); return; }
 
   document.getElementById('mood-picker').style.display = 'none';
   document.getElementById('ai-thinking').style.display = 'block';
@@ -1053,21 +836,20 @@ async function getSuggestions() {
     `${m.name} (${m.category || 'uncategorised'}) – rated ${m.rating || '?'}/5, eaten ${timeAgo(m.createdAt)}`
   ).join('\n');
 
+  const cats = getCategories().map(c => `${c.emoji} ${c.name}`).join(', ');
   const moodStr = Object.entries(currentMoods).map(([k,v]) => `${k}: ${v}`).join(', ');
 
   const prompt = `You are a helpful meal suggestion assistant for a couple. Here is their recent meal history:
 
 ${mealHistory || 'No meals logged yet.'}
 
+Available meal categories: ${cats}
+
 Tonight's mood/preferences: ${moodStr || 'no specific preferences given'}
 
-Based on this history, suggest exactly 3 dinner options. Consider:
-- Variety (don't repeat what they've had very recently)
-- Their mood and energy tonight
-- Mix comfort with novelty
-- Be specific with dish names, not just cuisine types
+Based on this history, suggest exactly 3 dinner options. Consider variety, mood, and time since last eaten. Be specific with dish names.
 
-Respond in this exact JSON format (no markdown, just raw JSON):
+Respond in this exact JSON format (raw JSON only, no markdown):
 {
   "suggestions": [
     {"name": "Dish name", "reason": "Why this makes sense tonight, 1-2 sentences."},
@@ -1085,25 +867,15 @@ Respond in this exact JSON format (no markdown, just raw JSON):
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 600,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 600, messages: [{role:'user',content:prompt}] })
     });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || 'API error');
-    }
-
+    if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'API error'); }
     const data = await res.json();
     const text = data.content.map(c => c.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
+    const parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
 
     document.getElementById('ai-thinking').style.display = 'none';
-
     const resultEl = document.getElementById('suggestion-result');
     resultEl.innerHTML = `
       <p class="section-label" style="margin-bottom:10px;">Tonight's suggestions</p>
@@ -1115,16 +887,14 @@ Respond in this exact JSON format (no markdown, just raw JSON):
           </div>
           <div class="suggestion-card-body">
             <p>${s.reason}</p>
-            <button class="btn-log-this" onclick="logThis('${s.name.replace(/'/g, "\\'")}')">✓ We're having this</button>
+            <button class="btn-log-this" onclick="logThis('${s.name.replace(/'/g,"\\'")}')">✓ We're having this</button>
           </div>
         </div>
       `).join('')}
       <button onclick="resetSuggest()" style="width:100%;padding:12px;background:none;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--muted);cursor:pointer;margin-top:4px;">
         Try different suggestions
-      </button>
-    `;
+      </button>`;
     resultEl.style.display = 'block';
-
   } catch (err) {
     document.getElementById('ai-thinking').style.display = 'none';
     document.getElementById('recent-tonight').style.display = 'block';
@@ -1132,10 +902,7 @@ Respond in this exact JSON format (no markdown, just raw JSON):
   }
 }
 
-function logThis(name) {
-  prefillName = name;
-  navigate('log');
-}
+function logThis(name) { prefillName = name; navigate('log'); }
 
 function resetSuggest() {
   document.getElementById('suggestion-result').style.display = 'none';
@@ -1161,7 +928,7 @@ function renderTonightRecent() {
         </div>
         <div class="meal-card-footer">
           <span class="meal-date">${timeAgo(m.createdAt)}</span>
-          ${m.category ? `<span class="meal-category-badge cat-${m.category.toLowerCase().replace(/\s+/g,'-')}">${m.category}</span>` : ''}
+          ${catBadgeHtml(m.category)}
         </div>
       </div>
     </div>
@@ -1171,6 +938,13 @@ function renderTonightRecent() {
 // ══════════════════════════════════════
 // LOG FORM
 // ══════════════════════════════════════
+function renderLogCategories() {
+  const cats = getCategories();
+  document.getElementById('cat-chips').innerHTML = cats.map(c =>
+    `<div class="chip" data-cat="${c.name}" onclick="selectCat(this)">${c.emoji} ${c.name}</div>`
+  ).join('');
+}
+
 function resetLogForm() {
   document.getElementById('log-name').value = '';
   document.getElementById('log-notes').value = '';
@@ -1183,6 +957,7 @@ function resetLogForm() {
   document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('#cat-chips .chip').forEach(c => c.classList.remove('selected'));
   document.getElementById('voice-transcript').textContent = '';
+  renderLogCategories();
 }
 
 function selectCat(el) {
@@ -1215,10 +990,8 @@ function handlePhoto(input) {
 function saveMeal() {
   const name = document.getElementById('log-name').value.trim();
   if (!name) { showToast('Please enter a meal name', 'error'); return; }
-
   const cat = document.querySelector('#cat-chips .chip.selected');
   const dateVal = document.getElementById('log-date').value;
-
   const meal = {
     name,
     category: cat ? cat.dataset.cat : null,
@@ -1228,7 +1001,6 @@ function saveMeal() {
     date: dateVal ? new Date(dateVal).toISOString() : new Date().toISOString()
   };
   meal.createdAt = meal.date;
-
   DB.add(meal);
   showToast('Meal saved! 🍽️', 'success');
   resetLogForm();
@@ -1240,32 +1012,22 @@ function saveMeal() {
 // ══════════════════════════════════════
 function toggleVoice() {
   if (!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)) {
-    showToast('Voice not supported on this browser', 'error');
-    return;
+    showToast('Voice not supported on this browser', 'error'); return;
   }
-
-  if (isRecording) {
-    recognition && recognition.stop();
-    return;
-  }
-
+  if (isRecording) { recognition && recognition.stop(); return; }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SR();
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = 'en-AU';
-
   recognition.onstart = () => {
     isRecording = true;
     document.getElementById('voice-btn').classList.add('recording');
     document.getElementById('voice-btn-text').textContent = 'Tap to stop';
   };
-
   recognition.onresult = e => {
     let transcript = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      transcript += e.results[i][0].transcript;
-    }
+    for (let i = e.resultIndex; i < e.results.length; i++) transcript += e.results[i][0].transcript;
     document.getElementById('voice-transcript').textContent = transcript;
     if (e.results[e.results.length - 1].isFinal) {
       const notes = document.getElementById('log-notes');
@@ -1273,13 +1035,11 @@ function toggleVoice() {
       document.getElementById('voice-transcript').textContent = '';
     }
   };
-
   recognition.onend = () => {
     isRecording = false;
     document.getElementById('voice-btn').classList.remove('recording');
     document.getElementById('voice-btn-text').textContent = 'Dictate notes';
   };
-
   recognition.onerror = () => recognition.stop();
   recognition.start();
 }
@@ -1287,6 +1047,20 @@ function toggleVoice() {
 // ══════════════════════════════════════
 // HISTORY
 // ══════════════════════════════════════
+function renderFilterChips() {
+  const cats = getCategories();
+  document.getElementById('filter-row').innerHTML =
+    `<div class="filter-chip ${currentFilter==='all'?'active':''}" data-filter="all" onclick="setFilter(this,'all')">All</div>` +
+    cats.map(c => `<div class="filter-chip ${currentFilter===c.name?'active':''}" data-filter="${c.name}" onclick="setFilter(this,'${c.name}')">${c.emoji} ${c.name}</div>`).join('');
+}
+
+function refreshCategoryUI() {
+  currentFilter = 'all';
+  renderLogCategories();
+  renderFilterChips();
+  renderHistory();
+}
+
 function setFilter(el, filter) {
   currentFilter = filter;
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
@@ -1297,24 +1071,14 @@ function setFilter(el, filter) {
 function renderHistory() {
   let meals = DB.load();
   if (currentFilter !== 'all') meals = meals.filter(m => m.category === currentFilter);
-
-  const countEl = document.getElementById('history-count');
-  countEl.textContent = `${DB.load().length} meals logged`;
-
+  document.getElementById('history-count').textContent = `${DB.load().length} meals logged`;
   const listEl = document.getElementById('history-list');
 
   if (meals.length === 0) {
-    listEl.innerHTML = `
-      <div class="empty-state">
-        <div class="emoji">🍴</div>
-        <h3>Nothing here yet</h3>
-        <p>${currentFilter === 'all' ? 'Start logging meals to build your food history.' : `No ${currentFilter} meals logged yet.`}</p>
-      </div>
-    `;
+    listEl.innerHTML = `<div class="empty-state"><div class="emoji">🍴</div><h3>Nothing here yet</h3><p>${currentFilter==='all'?'Start logging meals to build your food history.':`No ${currentFilter} meals logged yet.`}</p></div>`;
     return;
   }
 
-  // Group by date
   const grouped = {};
   meals.forEach(m => {
     const d = formatDate(m.createdAt);
@@ -1335,16 +1099,14 @@ function renderHistory() {
           ${m.notes ? `<p class="meal-card-notes">${m.notes}</p>` : ''}
           <div class="meal-card-footer">
             <span class="meal-date">${formatTime(m.createdAt)}</span>
-            ${m.category ? `<span class="meal-category-badge cat-${m.category.toLowerCase().replace(/\s+/g,'-')}">${m.category}</span>` : ''}
+            ${catBadgeHtml(m.category)}
           </div>
           <div class="meal-card-actions">
             <button class="btn-icon" onclick="openDetail('${m.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              View
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> View
             </button>
             <button class="btn-icon danger" onclick="deleteMeal('${m.id}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-              Delete
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg> Delete
             </button>
           </div>
         </div>
@@ -1366,20 +1128,16 @@ function deleteMeal(id) {
 function openDetail(id) {
   const meal = DB.load().find(m => m.id === id);
   if (!meal) return;
-
   const img = document.getElementById('detail-img');
   if (meal.photo) { img.src = meal.photo; img.style.display = 'block'; }
   else { img.style.display = 'none'; }
-
   document.getElementById('detail-name').textContent = meal.name;
   document.getElementById('detail-meta').textContent =
     [meal.category, '⭐'.repeat(meal.rating || 0), formatDate(meal.createdAt) + ' ' + formatTime(meal.createdAt)]
     .filter(Boolean).join(' · ');
-
   const notesEl = document.getElementById('detail-notes');
   if (meal.notes) { notesEl.textContent = meal.notes; notesEl.style.display = 'block'; }
   else { notesEl.style.display = 'none'; }
-
   document.getElementById('detail-modal').classList.add('open');
 }
 
@@ -1389,10 +1147,210 @@ function closeDetail(e) {
 }
 
 // ══════════════════════════════════════
+// CATEGORIES MANAGEMENT
+// ══════════════════════════════════════
+function renderCategoryEditor() {
+  const cats = getCategories();
+  const el = document.getElementById('categories-editor-list');
+  if (cats.length === 0) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:8px 0;">No categories. Add one below.</p>';
+    return;
+  }
+  el.innerHTML = cats.map((c, i) => `
+    <div class="cat-edit-row" id="cat-row-${i}">
+      <div class="cat-emoji-badge">${c.emoji}</div>
+      <span class="cat-name-label">${c.name}</span>
+      <button class="cat-row-btn" onclick="startEditCat(${i})" title="Edit">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </button>
+      <button class="cat-row-btn del" onclick="deleteCat(${i})" title="Delete">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function startEditCat(i) {
+  const cats = getCategories();
+  const c = cats[i];
+  const row = document.getElementById(`cat-row-${i}`);
+  row.innerHTML = `
+    <div class="cat-inline-edit">
+      <input type="text" value="${c.emoji}" id="edit-emoji-${i}" class="form-input emoji-input" maxlength="4">
+      <input type="text" value="${c.name}" id="edit-name-${i}" class="form-input" style="flex:1;padding:8px 10px;font-size:14px;" onkeydown="if(event.key==='Enter')saveEditCat(${i})">
+      <button class="btn-add-small" style="padding:8px 12px;" onclick="saveEditCat(${i})">✓</button>
+      <button class="cat-row-btn" onclick="renderCategoryEditor()">✕</button>
+    </div>
+  `;
+  document.getElementById(`edit-name-${i}`).focus();
+}
+
+function saveEditCat(i) {
+  const cats = getCategories();
+  const emoji = document.getElementById(`edit-emoji-${i}`).value.trim() || cats[i].emoji;
+  const name = document.getElementById(`edit-name-${i}`).value.trim() || cats[i].name;
+  cats[i] = {emoji, name};
+  saveCategories(cats);
+  renderCategoryEditor();
+  showToast('Category updated');
+}
+
+function deleteCat(i) {
+  const cats = getCategories();
+  const name = cats[i].name;
+  if (!confirm(`Delete "${name}"? Meals already logged with this category won't be affected.`)) return;
+  cats.splice(i, 1);
+  saveCategories(cats);
+  renderCategoryEditor();
+  showToast(`${name} deleted`);
+}
+
+function addCategory() {
+  const emoji = document.getElementById('new-cat-emoji').value.trim();
+  const name = document.getElementById('new-cat-name').value.trim();
+  if (!name) { showToast('Enter a category name', 'error'); return; }
+  const cats = getCategories();
+  if (cats.some(c => c.name.toLowerCase() === name.toLowerCase())) { showToast('Category already exists', 'error'); return; }
+  cats.push({emoji: emoji || '🍽️', name});
+  saveCategories(cats);
+  document.getElementById('new-cat-emoji').value = '';
+  document.getElementById('new-cat-name').value = '';
+  renderCategoryEditor();
+  showToast(`"${name}" added ✓`);
+}
+
+function resetCategories() {
+  if (!confirm('Reset to the 10 default categories?')) return;
+  saveCategories([...DEFAULT_CATEGORIES]);
+  renderCategoryEditor();
+  showToast('Categories reset to defaults');
+}
+
+// ══════════════════════════════════════
+// DEV NOTES
+// ══════════════════════════════════════
+function renderDevNotes() {
+  const data = getDevNotes();
+
+  // Active list
+  const activeEl = document.getElementById('devnotes-active-list');
+  if (data.active.length === 0) {
+    activeEl.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:6px 0 8px;">No active notes. Add ideas above.</p>';
+  } else {
+    activeEl.innerHTML = data.active.map(n => `
+      <div class="devnote-item">
+        <input type="checkbox" class="devnote-checkbox" onchange="archiveDevNote('${n.id}')">
+        <span class="devnote-text">${escHtml(n.text)}</span>
+        <button class="devnote-del" onclick="deleteDevNote('${n.id}')" title="Remove">×</button>
+      </div>
+    `).join('');
+  }
+
+  // Archive count
+  document.getElementById('archive-count').textContent = data.archived.length;
+
+  // Archived list
+  const archEl = document.getElementById('devnotes-archived-list');
+  if (data.archived.length === 0) {
+    archEl.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:6px 0;">No archived notes.</p>';
+  } else {
+    archEl.innerHTML = data.archived.map(n => `
+      <div class="devnote-item devnote-archived">
+        <input type="checkbox" class="devnote-checkbox" checked disabled>
+        <span class="devnote-text">${escHtml(n.text)}</span>
+        <button class="devnote-del" onclick="deleteArchivedNote('${n.id}')" title="Remove">×</button>
+      </div>
+    `).join('');
+  }
+}
+
+function addDevNote() {
+  const input = document.getElementById('devnote-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const data = getDevNotes();
+  data.active.push({id: Date.now().toString(), text});
+  saveDevNotes(data);
+  input.value = '';
+  renderDevNotes();
+}
+
+function archiveDevNote(id) {
+  const data = getDevNotes();
+  const idx = data.active.findIndex(n => n.id === id);
+  if (idx < 0) return;
+  const note = data.active.splice(idx, 1)[0];
+  note.archivedAt = new Date().toISOString();
+  data.archived.push(note);
+  saveDevNotes(data);
+  // small delay so checkbox animation is visible
+  setTimeout(() => renderDevNotes(), 300);
+}
+
+function deleteDevNote(id) {
+  const data = getDevNotes();
+  data.active = data.active.filter(n => n.id !== id);
+  saveDevNotes(data);
+  renderDevNotes();
+}
+
+function deleteArchivedNote(id) {
+  const data = getDevNotes();
+  data.archived = data.archived.filter(n => n.id !== id);
+  saveDevNotes(data);
+  renderDevNotes();
+}
+
+function toggleDevArchive() {
+  archiveVisible = !archiveVisible;
+  document.getElementById('devnotes-archived-list').style.display = archiveVisible ? 'block' : 'none';
+  const icon = document.getElementById('archive-caret-icon');
+  icon.innerHTML = archiveVisible
+    ? '<polyline points="18 15 12 9 6 15"/>'
+    : '<polyline points="9 18 15 12 9 6"/>';
+}
+
+function exportDevNotes() {
+  const data = getDevNotes();
+  const lines = [];
+  lines.push('MEALMATE DEV NOTES');
+  lines.push(`Exported: ${new Date().toLocaleString('en-AU')}`);
+  lines.push('');
+  lines.push('── TO DO ──────────────────────────');
+  if (data.active.length === 0) {
+    lines.push('(none)');
+  } else {
+    data.active.forEach((n, i) => lines.push(`${i+1}. ${n.text}`));
+  }
+  lines.push('');
+  lines.push('── DONE / ARCHIVED ─────────────────');
+  if (data.archived.length === 0) {
+    lines.push('(none)');
+  } else {
+    data.archived.forEach((n, i) => lines.push(`${i+1}. ✓ ${n.text}`));
+  }
+  lines.push('');
+  lines.push('────────────────────────────────────');
+  lines.push('Paste this into your next Claude session to brief your dev assistant.');
+
+  const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mealmate-devnotes-${new Date().toISOString().slice(0,10)}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Dev notes exported ✓', 'success');
+}
+
+// ══════════════════════════════════════
 // SETTINGS
 // ══════════════════════════════════════
 function openSettings() {
   document.getElementById('api-key-input').value = DB.getApiKey();
+  renderInstallContent();
+  renderDevNotes();
+  renderCategoryEditor();
   document.getElementById('settings-modal').classList.add('open');
 }
 
@@ -1401,11 +1359,10 @@ function closeSettings(e) {
   document.getElementById('settings-modal').classList.remove('open');
 }
 
-function saveSettings() {
+function saveApiKey() {
   const key = document.getElementById('api-key-input').value.trim();
   DB.setApiKey(key);
-  document.getElementById('settings-modal').classList.remove('open');
-  showToast('Settings saved ✓', 'success');
+  showToast('API key saved ✓', 'success');
 }
 
 function clearAllData() {
@@ -1415,6 +1372,61 @@ function clearAllData() {
   showToast('All data cleared');
   renderHistory();
   renderTonightRecent();
+}
+
+// ══════════════════════════════════════
+// EXPORT / IMPORT
+// ══════════════════════════════════════
+function exportAllData() {
+  const payload = {
+    version: '1.0',
+    exportDate: new Date().toISOString(),
+    meals: DB.load(),
+    categories: getCategories(),
+    devnotes: getDevNotes(),
+    apikey: DB.getApiKey()
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mealmate-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup exported ✓', 'success');
+}
+
+function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.meals && !data.categories) throw new Error('Not a valid MealMate backup');
+
+      const dateStr = data.exportDate ? new Date(data.exportDate).toLocaleDateString('en-AU') : 'unknown date';
+      const mealCount = data.meals ? data.meals.length : 0;
+      if (!confirm(`Import backup from ${dateStr}?\n\n${mealCount} meals, categories, dev notes, and API key will be restored.\n\nThis will overwrite ALL current data.`)) {
+        input.value = ''; return;
+      }
+
+      if (data.meals) DB.save(data.meals);
+      if (data.categories) localStorage.setItem('mealmate_categories', JSON.stringify(data.categories));
+      if (data.devnotes) localStorage.setItem('mealmate_devnotes', JSON.stringify(data.devnotes));
+      if (data.apikey) DB.setApiKey(data.apikey);
+
+      refreshCategoryUI();
+      renderDevNotes();
+      renderCategoryEditor();
+      renderTonightRecent();
+      showToast(`Imported ${mealCount} meals ✓`, 'success');
+    } catch (err) {
+      showToast('Invalid backup file: ' + err.message, 'error');
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
 }
 
 // ══════════════════════════════════════
@@ -1452,28 +1464,36 @@ function formatDate(iso) {
   if (d.toDateString() === now.toDateString()) return 'Today';
   const yesterday = new Date(now); yesterday.setDate(now.getDate()-1);
   if (d.toDateString() === yesterday.toDateString()) return 'Yesterday';
-  return d.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' });
+  return d.toLocaleDateString('en-AU', {weekday:'long', day:'numeric', month:'long'});
 }
 
 function formatTime(iso) {
-  return new Date(iso).toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+  return new Date(iso).toLocaleTimeString('en-AU', {hour:'2-digit', minute:'2-digit'});
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 // ══════════════════════════════════════
 // INIT
 // ══════════════════════════════════════
 function init() {
-  // Set tonight date
+  setupPWA();
+
+  // Tonight date
   const now = new Date();
-  const parts = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' }).split(' ');
+  const day = now.toLocaleDateString('en-AU', {weekday:'long'});
   const hour = now.getHours();
   const period = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
-  document.getElementById('tonight-date').textContent = `${parts[0]} ${period}`;
+  document.getElementById('tonight-date').textContent = `${day} ${period}`;
 
-  // Set log date default
+  // Log date default
   document.getElementById('log-date').value = now.toISOString().slice(0, 16);
 
-  // Render recent
+  // Render dynamic UI
+  renderLogCategories();
+  renderFilterChips();
   renderTonightRecent();
 }
 
